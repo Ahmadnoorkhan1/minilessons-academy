@@ -1,5 +1,3 @@
-import React from 'react'
-
 import HeroSection from '../components/HeroSection'
 import Advertisement from '../components/Advertisement'
 import Features from '../components/Features'

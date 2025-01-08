@@ -66,16 +66,6 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="container max-w-[1440px]">
-        <div className="footer-copyright mx-auto border-t border-border pb-10 pt-7 text-center">
-          <p>
-            Designed And Developed by{' '}
-            <a href="https://themefisher.com" target="_blank" rel="noopener noreferrer">
-              Themefisher
-            </a>
-          </p>
-        </div>
-      </div>
     </footer>
   );
 };

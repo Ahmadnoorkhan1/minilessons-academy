@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-const Advertisement: React.FC = (props) => {
+const Advertisement: React.FC = () => {
   return (
     <section className="section services">
       <div className="container">

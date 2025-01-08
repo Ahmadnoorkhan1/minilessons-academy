@@ -1,4 +1,3 @@
-import React from 'react';
 import '../App.css';
 
 const ContactUs = () => {
@@ -106,8 +105,8 @@ const ContactUs = () => {
                   <textarea
                     className="form-control h-[150px]"
                     id="message"
-                    cols="30"
-                    rows="10"
+                    cols={30}
+                    rows={10}
                   ></textarea>
                 </div>
                 <input

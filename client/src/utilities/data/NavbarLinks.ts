@@ -5,14 +5,14 @@ export const NAVLINKS: any = [
     },
     {
         title: 'FAQ',
-        href: '/'
+        href: '/faq'
     },
     {
         title: 'Pricing',
-        href: '/'
+        href: '/pricing'
     },
     {
         title: 'Contact Us',
-        href: '/'
+        href: '/contact-us'
     }
 ]

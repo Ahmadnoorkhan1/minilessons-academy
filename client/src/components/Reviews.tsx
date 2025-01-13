@@ -22,20 +22,30 @@ const Reviews: React.FC = () => {
           <div className="col-12">
             <Swiper
               spaceBetween={50}
-              slidesPerView={3}
               onSlideChange={() => console.log('slide change')}
               onSwiper={(swiper) => console.log(swiper)}
               pagination={true}
+              breakpoints={{
+                768:{
+                  slidesPerView:3,
+                },
+                640:{
+                  slidesPerView:2,
+                },
+                0:{
+                  slidesPerView:1,
+                }
+              }}
             >
               {
                 REVIEWSDATA.map((review: any, index: number) => {
                   return (
                     <SwiperSlide key={index}>
                       <div className="review">
-                        <div className="review-author-avatar bg-gradient">
+                        <div className="review-author-avatar bg-gradient rounded-t-lg p-3">
                           <img src={review.image} alt={review.name} />
                         </div>
-                        <h4 className="mb-2">{review.name}</h4>
+                        <h4 className="my-2">{review.name}</h4>
                         <p className="mb-4 text-[#666]">{review.organization}</p>
                         <p>
                           {review.description}

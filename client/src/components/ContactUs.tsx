@@ -1,5 +1,5 @@
 import '../App.css';
-
+import contactUs from '../assets/customer-service.jpg';
 const ContactUs = () => {
   return (
     <div>
@@ -51,7 +51,7 @@ const ContactUs = () => {
           <div className="page-hero-content mx-auto max-w-[768px] text-center">
             <h1 className="mb-5 mt-8">
               Get’n touch with Our <br />
-              Pinwheel team
+              Team
             </h1>
           </div>
         </div>
@@ -63,7 +63,7 @@ const ContactUs = () => {
           <div className="row">
             <div className="mb-10 text-center md:col-6 md:order-2 md:mb-0 md:pt-9">
               <div className="contact-img relative inline-flex pl-5 pb-5">
-                <img src="images/contact-img.png" alt="" />
+                <img src={contactUs} alt="contact-us" />
                 <img
                   className="absolute bottom-0 left-0 -z-[1] h-14 w-14"
                   src="images/shape-2.svg"

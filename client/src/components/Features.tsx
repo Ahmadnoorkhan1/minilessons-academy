@@ -55,6 +55,7 @@ const Features: React.FC = () => {
           ))}
         </div>
       </div>
+      
     </section>
   );
 };

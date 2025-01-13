@@ -344,23 +344,13 @@ select:invalid {
 
 /* //review-carousel */
 .review {
-  @apply my-16 rounded-xl bg-white px-3 py-6 pb-16 text-center;
+  @apply my-16 rounded-xl bg-white pb-16 text-center;
 
   &-author-avatar {
     @apply mx-auto -mt-12 h-[90px] w-[90px] -translate-y-5 rounded-full p-0.5;
   }
 }
 
-/* //pagination style */
-/* .reviews-carousel {
-  .swiper-pagination-bullet {
-    @apply h-3.5 w-3.5 bg-[#8d8d8d];
-
-    &-active {
-      @apply bg-primary;
-    }
-  }
-} */
 
 /* //services */
 .services {

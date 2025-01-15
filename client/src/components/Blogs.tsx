@@ -10,27 +10,26 @@ const Blogs: React.FC = () => {
       <div className="relative mx-auto max-w-7xl">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Column me neatly.
+          Create Books, Guides, Newsletters & More...
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4">
-            This is your life and it's ending one minute @ a time...
+          Instant Author lets you easily create top-notch books, guides, newsletters, and more with just a few taps.
           </p>
         </div>
         <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
 
           <div className="flex flex-col overflow-hidden rounded-lg shadow-lg">
             <div className="flex-shrink-0">
-              <img className="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80" alt="" />
+              <img className="h-48 w-full object-cover" src="/images/emma.jpg" alt="" />
             </div>
             <div className="flex flex-1 flex-col justify-between bg-white p-6">
               <div className="flex-1">
                 <p className="text-sm font-medium text-indigo-600">
-                  <a href="#" className="hover:underline">Article</a>
+                  <a href="#" className="hover:underline">Book</a>
                 </p>
                 <a href="#" className="mt-2 block">
-                  <p className="text-xl font-semibold text-gray-900">Boost your conversion rate</p>
-                  <p className="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.</p>
+                  <p className="text-xl font-semibold text-gray-900">Empowering a Health & Fitness Coach to Scale Her Business with Mini Lessons Academy</p>
+                  <p className="mt-3 text-base text-gray-500">As a certified personal trainer and nutritionist based in Austin, Texas, Emma J. has always been passionate about helping people lead healthier lives. For years, she worked one-on-one with clients, providing personalized fitness plans....</p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">
@@ -61,13 +60,12 @@ const Blogs: React.FC = () => {
             <div className="flex flex-1 flex-col justify-between bg-white p-6">
               <div className="flex-1">
                 <p className="text-sm font-medium text-indigo-600">
-                  <a href="#" className="hover:underline">Video</a>
+                  <a href="#" className="hover:underline">Book</a>
                 </p>
                 <a href="#" className="mt-2 block">
-                  <p className="text-xl font-semibold text-gray-900">How to use search engine optimization to drive sales</p>
-                  <p className="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                    facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi.,
-                    tempore temporibus quo laudantium.</p>
+                  <p className="text-xl font-semibold text-gray-900">How a Business Consultant Expanded His Reach with Mini Lessons Academy
+                  </p>
+                  <p className="mt-3 text-base text-gray-500">Daniel T., a seasoned business consultant from Chicago, Illinois, has spent over 15 years helping small businesses optimize their operations and strategies. While he enjoyed the in-depth interactions with his clients, Daniel felt there was a ceiling to how many businesses he ...</p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">
@@ -101,10 +99,8 @@ const Blogs: React.FC = () => {
                   <a href="#" className="hover:underline">Case Study</a>
                 </p>
                 <a href="#" className="mt-2 block">
-                  <p className="text-xl font-semibold text-gray-900">Improve your customer experience</p>
-                  <p className="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-                    harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis
-                    perferendis hic.</p>
+                  <p className="text-xl font-semibold text-gray-900">A Teacher Transforms Education with Mini Lessons Academy</p>
+                  <p className="mt-3 text-base text-gray-500">For over a decade, Samantha L., a dedicated middle school teacher from Portland, Oregon, has been passionate about making learning engaging and accessible for all her students. With the recent shifts in education models post-Pandemic, she found herself teaching in a hybrid...</p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">

@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,10 +7,10 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { cn } from "../../lib/utils";
+import { cn } from "../../utilities/lib/utils";
 import { Icon } from "@iconify/react";
 import { Checkbox } from "../ui/checkbox";
-import { useMediaQuery } from "../hooks/use-media-query";
+import { useMediaQuery } from "../../utilities/hooks/use-media-query";
 import { NavLink } from "react-router";
 
 // Define schema using zod

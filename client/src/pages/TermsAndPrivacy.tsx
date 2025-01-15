@@ -1,17 +1,17 @@
-import { Button } from "../components/ui/button"
+
+"use client";
 import { Icon } from "@iconify/react";
 import background from "/images/auth/line.png";
-import { Dialog, DialogContent } from "../components/ui/dialog";
+import { Button } from "../components/ui/button";
 import { X } from "lucide-react";
 import { useState } from "react";
-import LoginForm from "../components/auth/loginForm";
+import { Dialog, DialogContent } from "../components/ui/dialog";
+import TermsAndPrivacy from '../components/auth/TermsAndPrivacy'
 
-
-const Authpage = () => {
+const TermsAndPrivacypage = () => {
   const [openVideo, setOpenVideo] = useState(false);
-
-    return (
-        <>
+  return (
+    <>
       <div className="min-h-screen bg-background  flex items-center  overflow-hidden w-full">
         <div className="min-h-screen basis-full flex flex-wrap w-full  justify-center overflow-y-auto">
           <div
@@ -54,14 +54,14 @@ const Authpage = () => {
           </div>
 
           <div className=" min-h-screen basis-full md:basis-1/2 w-full px-4 py-5 flex justify-center items-center">
-            <div className="lg:w-[480px] ">
-              <LoginForm />
+            <div className="lg:w-[800px] ">
+              <TermsAndPrivacy />
             </div>
           </div>
         </div>
       </div>
       <Dialog open={openVideo}>
-        <DialogContent size="lg" className="p-0" hiddenCloseIcon={true}>
+        <DialogContent size="lg" className="p-0" >
           <Button
             size="icon"
             onClick={() => setOpenVideo(false)}
@@ -81,7 +81,7 @@ const Authpage = () => {
         </DialogContent>
       </Dialog>
     </>
-    )
-}
+  );
+};
 
-export default Authpage
+export default TermsAndPrivacypage;

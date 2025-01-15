@@ -10,7 +10,8 @@ import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { useMediaQuery } from "../../utilities/hooks/use-media-query";
 import googleIcon from "/images/auth/google.png";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import apiService from "../../utilities/service/api";
 const schema = z.object({
   email: z.string().email({ message: "Your email is invalid." }),
   password: z.string().min(4),
@@ -42,24 +43,22 @@ const LoginForm = () => {
     },
   });
   const [isVisible, setIsVisible] = React.useState(false);
+  const navigate = useNavigate();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const onSubmit = (data:any) => {
-    startTransition(async () => {
-      let response = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-      if (response?.ok) {
-        toast.success("Login Successful");
-        window.location.assign("/dashboard");
-        reset();
-      } else if (response?.error) {
-        toast.error(response?.error);
+  const onSubmit = async(data:any) => {
+   try {
+    const response:any = apiService.post('auth/login',data);
+    response.then((res:any)=>{
+      console.log(res, "<<<<< responseee")
+      if(res.success){
+        navigate('/dashboard')
       }
-    });
+    })
+  } catch (error) {
+    
+   }
   };
   return (
     <div className="w-full py-10">

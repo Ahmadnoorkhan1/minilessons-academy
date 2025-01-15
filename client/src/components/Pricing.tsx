@@ -47,12 +47,9 @@ const Pricing = () => {
             </ul>
           </div>
           <div className="page-hero-content mx-auto max-w-[768px] text-center">
-            <h1 className="mb-5 mt-8">Pinwheel Pricing</h1>
+            <h1 className="mb-5 mt-8">Choose A Plan</h1>
             <p>
-              Donec sollicitudin molestie malesda. Donec sollitudin molestie
-              malesuada. Mauris <br />
-              pellentesque nec, egestas non nisi. Cras ultricies ligula sed
-              magna
+              Upgrade Anytime <span className="font-bold text-primary">Subscribe annually to get 2 Months Free</span>
             </p>
           </div>
         </div>
@@ -60,7 +57,7 @@ const Pricing = () => {
 
       <section className="section mt-12 pt-0">
         <div className="container">
-          <div className="flex gap-3 lg:px-10">
+          <div className="flex gap-3 lg:px-10 md:flex-nowrap flex-wrap ">
             {PRICING &&
               PRICING.length &&
               PRICING.map((item: any) => {

@@ -6,13 +6,13 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import { cn } from "../../utilities/lib/utils";
 import { Icon } from "@iconify/react";
-import { Checkbox } from "../ui/checkbox";
 import googleIcon from "/images/auth/google.png";
 import { useMediaQuery } from "../../utilities/hooks/use-media-query";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import apiService from "../../utilities/service/api";
 
 // Zod schema
 const schema = z.object({
@@ -28,6 +28,7 @@ const SignUpForm: React.FC = () => {
   const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = useState<"password" | "text">("password");
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
+  const navigate = useNavigate();
   //   const router = useRouter();
 
   // React Hook Form
@@ -45,9 +46,17 @@ const SignUpForm: React.FC = () => {
     setPasswordType((prev) => (prev === "password" ? "text" : "password"));
   };
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data:any) => {
+    try {
+      const api:any = await apiService.post('auth/register',data);
+      if(api.success){
+        navigate('/login')
+      }
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
   };
+  
 
   return (
     <div className="w-full">
@@ -119,7 +128,7 @@ const SignUpForm: React.FC = () => {
             {errors.password && <div className="text-red-500 mt-2">{errors.password.message}</div>}
           </div>
         </div>
-        <div className="mt-5 flex items-center gap-1.5 mb-8">
+        {/* <div className="mt-5 flex items-center gap-1.5 mb-8">
           <Checkbox size="sm" className="border-gray-300 text-gray-50 mt-[1px]" id="terms" />
           <Label
             htmlFor="terms"
@@ -127,9 +136,9 @@ const SignUpForm: React.FC = () => {
           >
             You accept our Terms & Conditions
           </Label>
-        </div>
+        </div> */}
         <Button
-          className="w-full"
+          className="w-full mt-5"
           disabled={isPending}
           size={!isDesktop2xl ? "lg" : "md"}
         >

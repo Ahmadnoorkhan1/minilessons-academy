@@ -1,4 +1,8 @@
 import React, { FC, useState } from "react";
+import StepOneCourseCreator from "../AiToolForms/StepOneCourseCreator";
+import StepTwoCourseCrreatorTool from "../AiToolForms/StepTwoCourseCrreatorTool";
+import StepsThirdCourseCreator from "../AiToolForms/StepsThirdCourseCreator";
+import StepFourCourseCreator from "../AiToolForms/StepFourCourseCreator";
 
 type StepperProps = {
   currentStep: number;
@@ -50,13 +54,13 @@ const CourseForm: FC = () => {
   const renderForm = () => {
     switch (currentStep) {
       case 0:
-        return <div>Form 1: Enter a Topic</div>;
+        return <StepOneCourseCreator/>;
       case 1:
-        return <div>Form 2: Select a Title</div>;
+        return <StepTwoCourseCrreatorTool />;
       case 2:
-        return <div>Form 3: Outline</div>;
+        return <StepsThirdCourseCreator/>;
       case 3:
-        return <div>Form 4: Summary</div>;
+        return <StepFourCourseCreator/>;
       case 4:
         return <div>Form 5: Pro Course</div>;
       default:

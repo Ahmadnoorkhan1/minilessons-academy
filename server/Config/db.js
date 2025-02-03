@@ -1,18 +1,27 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
-dotenv.config();
+// Constructing the DB_URI from .env variables
+const DB_URI = `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-        });
-        console.log('MongoDB connected successfully');
-    } catch (err) {
-        console.error(err.message);
-        process.exit(1);
-    }
+// Create a Sequelize instance to interact with the MySQL database
+const sequelize = new Sequelize(DB_URI, {
+  dialect: 'mysql',
+  logging: false, // Disable query logging for cleaner output
+});
+
+// Sync function to create tables if they don't exist
+const syncDatabase = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connected successfully.');
+
+    // Sync models with database
+    await sequelize.sync({ alter: true });  // Use { force: true } only if you want to drop and recreate tables
+    console.log('Database synced.');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
 };
 
-module.exports = connectDB;
+module.exports = { syncDatabase, sequelize };

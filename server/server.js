@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDB = require('./Config/db');
+const { syncDatabase } = require('./Config/db'); // Import correctly
 const authRoutes = require('./Routes/UserRoutes');
 const cors = require("cors");
 
@@ -8,7 +8,8 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-connectDB();
+
+syncDatabase(); // Now it will work
 
 app.use(express.json());
 app.get('/', (req, res) => {

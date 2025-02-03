@@ -1,168 +1,179 @@
 "use client";
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import {  Loader2 } from "lucide-react";
-import { cn } from "../../utilities/lib/utils";
-import { Icon } from "@iconify/react";
-import googleIcon from "/images/auth/google.png";
-import { useMediaQuery } from "../../utilities/hooks/use-media-query";
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate, NavLink } from "react-router"; // Assuming react-router
 import apiService from "../../utilities/service/api";
 
-// Zod schema
-const schema = z.object({
-  name: z.string().min(3, { message: "Name must be at least 3 characters." }),
-  email: z.string().email({ message: "Your email is invalid." }),
-  password: z.string().min(8, { message: "Password must be at least 8 characters." }),
-});
-
-// Define form input types based on schema
-type FormData = z.infer<typeof schema>;
-
 const SignUpForm: React.FC = () => {
-  const [isPending, startTransition] = React.useTransition();
-  const [passwordType, setPasswordType] = useState<"password" | "text">("password");
-  const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
   const navigate = useNavigate();
-  //   const router = useRouter();
-
-  // React Hook Form
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    mode: "all",
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
   });
 
-  const togglePasswordType = () => {
-    setPasswordType((prev) => (prev === "password" ? "text" : "password"));
+  const [errors, setErrors] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordType, setPasswordType] = useState<"password" | "text">("password");
+
+  // Handle Input Change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    // Clear error when typing
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const onSubmit: SubmitHandler<FormData> = async (data:any) => {
+  // Validate Form
+  const validateForm = () => {
+    let isValid = true;
+    let newErrors = { first_name: "", last_name: "", email: "", password: "" };
+
+    if (formData.first_name.trim().length < 2) {
+      newErrors.first_name = "First name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (formData.last_name.trim().length < 2) {
+      newErrors.last_name = "Last name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Your email is invalid.";
+      isValid = false;
+    }
+
+    if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
     try {
-      const api:any = await apiService.post('auth/register',data);
-      if(api.success){
-        navigate('/login')
+      const response: any = await apiService.post("auth/register", formData);
+      if (response.success) {
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error during API call:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  
+
+  // Toggle Password Visibility
+  const togglePasswordType = () => {
+    setPasswordType((prev) => (prev === "password" ? "text" : "password"));
+  };
 
   return (
     <div className="w-full">
       <div className="flex justify-center">
         <NavLink to="/">
-          {/* <SiteLogo className="h-10 w-10 2xl:w-14 2xl:h-14 text-primary" /> */}
           <img src="/images/logo.png" height="30" width="147" alt="logo" />
         </NavLink>
       </div>
-      <div className="2xl:mt-8 mt-6 2xl:text-3xl text-2xl font-bold text-gray-900">
-        Hey, Hello 👋
-      </div>
-      <div className="2xl:text-lg text-base text-gray-600 mt-2 leading-6">
-        Create account to start using DashTail
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-5 xl:mt-7">
+      <h2 className="mt-6 text-2xl font-bold text-gray-900">Hey, Hello 👋</h2>
+      <p className="text-base text-gray-600 mt-2">Create an account to start using DashTail</p>
+
+      <form onSubmit={handleSubmit} className="mt-5">
         <div className="space-y-4">
+          {/* First Name Field */}
           <div>
-            <Label htmlFor="name" className="mb-2 font-medium text-gray-600">
-              Full Name{" "}
-            </Label>
-            <Input
-              disabled={isPending}
-              {...register("name")}
+            <label htmlFor="first_name" className="font-medium text-gray-600">First Name</label>
+            <input
               type="text"
-              id="name"
-              className={cn("", { "border-red-500": errors.name })}
-              size={!isDesktop2xl ? "xl" : "lg"}
+              id="first_name"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              className={`w-full p-2 border ${errors.first_name ? "border-red-500" : "border-gray-300"}`}
             />
-            {errors.name && <div className="text-red-500 mt-2 mb-4">{errors.name.message}</div>}
+            {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
           </div>
+
+          {/* Last Name Field */}
           <div>
-            <Label htmlFor="email" className="mb-2 font-medium text-gray-600">
-              Email{" "}
-            </Label>
-            <Input
-              disabled={isPending}
-              {...register("email")}
+            <label htmlFor="last_name" className="font-medium text-gray-600">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              className={`w-full p-2 border ${errors.last_name ? "border-red-500" : "border-gray-300"}`}
+            />
+            {errors.last_name && <p className="text-red-500 text-sm">{errors.last_name}</p>}
+          </div>
+
+          {/* Email Field */}
+          <div>
+            <label htmlFor="email" className="font-medium text-gray-600">Email</label>
+            <input
               type="email"
               id="email"
-              className={cn("", { "border-red-500": errors.email })}
-              size={!isDesktop2xl ? "xl" : "lg"}
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`w-full p-2 border ${errors.email ? "border-red-500" : "border-gray-300"}`}
             />
-            {errors.email && <div className="text-red-500 mt-2 mb-4">{errors.email.message}</div>}
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
+
+          {/* Password Field */}
           <div>
-            <Label htmlFor="password" className="mb-2 font-medium text-gray-600">
-              Password{" "}
-            </Label>
+            <label htmlFor="password" className="font-medium text-gray-600">Password</label>
             <div className="relative">
-              <Input
+              <input
                 type={passwordType}
                 id="password"
-                size={!isDesktop2xl ? "xl" : "lg"}
-                disabled={isPending}
-                {...register("password")}
-                className={cn("", { "border-red-500": errors.password })}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full p-2 border ${errors.password ? "border-red-500" : "border-gray-300"}`}
               />
-              <div
-                className="absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer"
+              <button
+                type="button"
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-400"
                 onClick={togglePasswordType}
               >
-                <Icon
-                  icon={passwordType === "password" ? "heroicons:eye" : "heroicons:eye-slash"}
-                  className="w-5 h-5 text-gray-400"
-                />
-              </div>
+                {passwordType === "password" ? "👁️" : "🙈"}
+              </button>
             </div>
-            {errors.password && <div className="text-red-500 mt-2">{errors.password.message}</div>}
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
         </div>
-        {/* <div className="mt-5 flex items-center gap-1.5 mb-8">
-          <Checkbox size="sm" className="border-gray-300 text-gray-50 mt-[1px]" id="terms" />
-          <Label
-            htmlFor="terms"
-            className="text-sm text-gray-600 cursor-pointer whitespace-nowrap"
-          >
-            You accept our Terms & Conditions
-          </Label>
-        </div> */}
-        <Button
-          className="w-full mt-5"
-          disabled={isPending}
-          size={!isDesktop2xl ? "lg" : "md"}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full mt-5 p-2 bg-blue-600 text-white rounded"
+          disabled={isSubmitting}
         >
-          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          <span className="text-gray-50"> {isPending ? "Registering..." : "Create an Account"}</span>
-        </Button>
+          {isSubmitting ? "Registering..." : "Create an Account"}
+        </button>
       </form>
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
-        {[googleIcon].map((icon, index) => (
-          <Button
-            key={index}
-            type="button"
-            size="icon"
-            variant="outline"
-            className="rounded-full border-gray-300 hover:bg-transparent"
-          >
-            <img src={icon} alt="social media icon" className="w-6 h-6" />
-          </Button>
-        ))}
-      </div>
-      <div className="mt-5 2xl:mt-8 text-center text-base text-gray-600">
-        Already Registered?{" "}
-        <NavLink className="text-primary" to="/login"> Sign in{" "}</NavLink>
-      </div>
+
+      <p className="mt-5 text-center text-gray-600">
+        Already Registered? <NavLink className="text-blue-600" to="/login">Sign in</NavLink>
+      </p>
     </div>
   );
 };
